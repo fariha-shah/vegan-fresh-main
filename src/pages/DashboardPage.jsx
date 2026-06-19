@@ -2,19 +2,13 @@ import { Routes, Route } from 'react-router-dom';
 import DashboardSidebar from '../components/dashboard/DashboardSidebar';
 import DashboardOverview from '../components/dashboard/DashboardOverview';
 import ProfileSection from '../components/dashboard/ProfileSection';
+import OrderHistory from '../components/dashboard/OrderHistory';
+import TrackOrder from '../components/dashboard/TrackOrder';
 // Placeholder components for now
 const ProfilePage = () => <ProfileSection />;
 
-const OrderHistoryPage = () => (
-  <div className="p-6 font-heading text-primary text-xl">
-    Order History — Coming soon!
-  </div>
-);
-const TrackOrderPage = () => (
-  <div className="p-6 font-heading text-primary text-xl">
-    Track Order — Coming soon!
-  </div>
-);
+const OrderHistoryPage = () => <OrderHistory />;
+const TrackOrderPage = () => <TrackOrder />;
 const FavoritesPage = () => (
   <div className="p-6 font-heading text-primary text-xl">
     Favorites — Coming soon!
