@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateProfile } from '../../store/slices/authSlice';
+import { updateProfile } from '../../redux/slices/authSlice';
 import {
   User,
   Mail,

@@ -1,22 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        primary: '#2E7D32',
-        'primary-dark': '#1B5E20',
-        'primary-light': '#81C784',
-        leaf: '#A5D6A7',
+        'fresh-green': '#2E7D32',
+        'fresh-green-dark': '#1B5E20',
+        'light-green': '#81C784',
+        'leaf-green': '#A5D6A7',
         'organic-brown': '#8D6E63',
-        tomato: '#E53935',
-        carrot: '#F57C00',
-        'bg-light': '#F5F5F5',
-        'text-dark': '#2C3E50',
+        'dark-gray': '#2C3E50',
+        'light-gray': '#F5F5F5',
+        'tomato-red': '#E53935',
+        'carrot-orange': '#F57C00',
       },
       fontFamily: {
-        heading: ['Poppins', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
+      },
+      borderRadius: {
+        card: '16px',
+      },
+      boxShadow: {
+        card: '0 4px 12px rgba(0,0,0,0.08)',
       },
     },
   },
