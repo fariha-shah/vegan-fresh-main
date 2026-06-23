@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { store } from './redux/store';
+console.log('STORE STATE:', store.getState());
 import App from './App';
 import './index.css';
 

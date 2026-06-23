@@ -2,64 +2,71 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Pencil,
-  X,
-  Check,
   Mail,
   Phone,
   MapPin,
+  Pencil,
+  Save,
+  X,
+  CheckCircle2,
   Camera,
-  User as UserIcon,
 } from 'lucide-react';
 import { setUser } from '../../redux/store';
 
-// One field config drives both the read view and the edit form —
-// keeps the two states from drifting apart as fields get added later.
-const FIELDS = [
-  { key: 'name', label: 'Full name', icon: UserIcon, type: 'text' },
-  { key: 'email', label: 'Email address', icon: Mail, type: 'email' },
-  { key: 'phone', label: 'Phone number', icon: Phone, type: 'tel' },
-  { key: 'street', label: 'Street address', icon: MapPin, type: 'text' },
-  { key: 'city', label: 'City', icon: MapPin, type: 'text' },
-  { key: 'state', label: 'State', icon: MapPin, type: 'text' },
-  { key: 'zip', label: 'ZIP code', icon: MapPin, type: 'text' },
-];
+// One labeled input, shared by view + edit states so styling never drifts apart.
+const Field = ({
+  icon: Icon,
+  label,
+  name,
+  value,
+  editing,
+  onChange,
+  type = 'text',
+}) => (
+  <div>
+    <label className="mb-1.5 flex items-center gap-1.5 font-inter text-xs font-medium text-[#2C3E50]/50">
+      <Icon size={13} />
+      {label}
+    </label>
+    {editing ? (
+      <input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        className="w-full rounded-xl border border-[#E0E0E0] bg-white px-4 py-2.5 font-inter text-sm text-[#2C3E50] outline-none transition-colors focus:border-[#2E7D32] focus:ring-2 focus:ring-[#2E7D32]/15"
+      />
+    ) : (
+      <p className="rounded-xl bg-[#F5F5F5] px-4 py-2.5 font-inter text-sm text-[#2C3E50]">
+        {value || '—'}
+      </p>
+    )}
+  </div>
+);
 
 export default function Profile() {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const [isEditing, setIsEditing] = useState(false);
-  const [showSaved, setShowSaved] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [form, setForm] = useState({
     name: user?.name || '',
     email: user?.email || '',
-    phone: user?.phone || '',
+    phone: user?.phone || '+92 3XX XXXXXXX',
     street: user?.address?.street || '',
     city: user?.address?.city || '',
     state: user?.address?.state || '',
     zip: user?.address?.zip || '',
+    country: user?.address?.country || 'Pakistan',
   });
 
-  const handleChange = (key, value) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
-  };
-
-  const handleCancel = () => {
-    setForm({
-      name: user?.name || '',
-      email: user?.email || '',
-      phone: user?.phone || '',
-      street: user?.address?.street || '',
-      city: user?.address?.city || '',
-      state: user?.address?.state || '',
-      zip: user?.address?.zip || '',
-    });
-    setIsEditing(false);
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSave = () => {
-    // TODO: replace with PUT /api/users/profile once Ayesh's endpoint is live
+    // Replace with PUT /api/users/profile once the backend route is live.
     dispatch(
       setUser({
         ...user,
@@ -71,130 +78,167 @@ export default function Profile() {
           city: form.city,
           state: form.state,
           zip: form.zip,
+          country: form.country,
         },
       })
     );
-    setIsEditing(false);
-    setShowSaved(true);
-    setTimeout(() => setShowSaved(false), 2200);
+    setEditing(false);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2500);
   };
 
   return (
-    <div className="max-w-3xl">
-      <div className="overflow-hidden rounded-card bg-white shadow-card">
-        {/* Cover strip */}
-        <div className="h-24 bg-gradient-to-r from-fresh-green to-light-green" />
-
-        <div className="px-6 pb-6 sm:px-8">
-          {/* Avatar + edit toggle */}
-          <div className="-mt-10 flex items-end justify-between">
-            <div className="relative">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-leaf-green font-poppins text-2xl font-semibold text-fresh-green-dark shadow-card">
-                {form.name ? form.name.charAt(0).toUpperCase() : 'U'}
-              </div>
-              <button
-                className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-white bg-fresh-green text-white transition-colors hover:bg-fresh-green-dark"
-                title="Change photo (hook up to Cloudinary upload)"
-              >
-                <Camera size={13} />
-              </button>
+    <div className="space-y-6">
+      {/* Header card with avatar */}
+      <div className="rounded-card bg-white p-6 shadow-card sm:p-8">
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center">
+          <div className="relative">
+            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-[#A5D6A7] font-poppins text-2xl font-semibold text-[#2E7D32]">
+              {form.name ? form.name.charAt(0).toUpperCase() : 'U'}
             </div>
+            <button
+              className="absolute -bottom-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-[#2E7D32] text-white shadow-md transition-transform hover:scale-105"
+              aria-label="Change profile photo"
+            >
+              <Camera size={13} />
+            </button>
+          </div>
 
-            {!isEditing ? (
+          <div className="flex-1 text-center sm:text-left">
+            <h2 className="font-poppins text-xl font-semibold text-[#2C3E50]">
+              {form.name || 'Your Name'}
+            </h2>
+            <p className="font-inter text-sm text-[#2C3E50]/60">{form.email}</p>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <AnimatePresence>
+              {saved && (
+                <motion.span
+                  initial={{ opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="flex items-center gap-1 rounded-full bg-[#E8F5E9] px-3 py-1.5 font-inter text-xs font-medium text-[#2E7D32]"
+                >
+                  <CheckCircle2 size={14} />
+                  Saved
+                </motion.span>
+              )}
+            </AnimatePresence>
+
+            {!editing ? (
               <button
-                onClick={() => setIsEditing(true)}
-                className="flex items-center gap-2 rounded-xl border border-fresh-green px-4 py-2 font-inter text-sm font-medium text-fresh-green transition-colors hover:bg-fresh-green hover:text-white"
+                onClick={() => setEditing(true)}
+                className="flex items-center gap-1.5 rounded-xl bg-[#2E7D32] px-4 py-2 font-inter text-sm font-medium text-white transition-colors hover:bg-[#1B5E20]"
               >
-                <Pencil size={15} />
-                Edit profile
+                <Pencil size={14} />
+                Edit Profile
               </button>
             ) : (
               <div className="flex gap-2">
                 <button
-                  onClick={handleCancel}
-                  className="flex items-center gap-1.5 rounded-xl border border-gray-200 px-3.5 py-2 font-inter text-sm text-dark-gray/70 transition-colors hover:bg-light-gray"
+                  onClick={() => setEditing(false)}
+                  className="flex items-center gap-1.5 rounded-xl border border-[#E0E0E0] px-4 py-2 font-inter text-sm font-medium text-[#2C3E50]/70 transition-colors hover:bg-[#F5F5F5]"
                 >
-                  <X size={15} />
+                  <X size={14} />
                   Cancel
                 </button>
                 <button
                   onClick={handleSave}
-                  className="flex items-center gap-1.5 rounded-xl bg-fresh-green px-3.5 py-2 font-inter text-sm font-medium text-white transition-colors hover:bg-fresh-green-dark"
+                  className="flex items-center gap-1.5 rounded-xl bg-[#2E7D32] px-4 py-2 font-inter text-sm font-medium text-white transition-colors hover:bg-[#1B5E20]"
                 >
-                  <Check size={15} />
+                  <Save size={14} />
                   Save
                 </button>
               </div>
             )}
           </div>
-
-          <div className="mt-4">
-            <h2 className="font-poppins text-lg font-semibold text-dark-gray">
-              {form.name || 'Your name'}
-            </h2>
-            <p className="font-inter text-sm text-dark-gray/50">
-              Manage your personal details and delivery address
-            </p>
-          </div>
-
-          {/* Fields */}
-          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {FIELDS.map(({ key, label, icon: Icon, type }) => (
-              <div
-                key={key}
-                className={key === 'street' ? 'sm:col-span-2' : ''}
-              >
-                <label className="mb-1.5 flex items-center gap-1.5 font-inter text-xs font-medium uppercase tracking-wide text-dark-gray/40">
-                  <Icon size={12} />
-                  {label}
-                </label>
-
-                <AnimatePresence mode="wait">
-                  {isEditing ? (
-                    <motion.input
-                      key="input"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      type={type}
-                      value={form[key]}
-                      onChange={(e) => handleChange(key, e.target.value)}
-                      className="w-full rounded-xl border border-gray-200 px-3.5 py-2.5 font-inter text-sm text-dark-gray outline-none transition-colors focus:border-fresh-green focus:ring-2 focus:ring-fresh-green/15"
-                    />
-                  ) : (
-                    <motion.p
-                      key="text"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      className="rounded-xl bg-light-gray px-3.5 py-2.5 font-inter text-sm text-dark-gray"
-                    >
-                      {form[key] || (
-                        <span className="text-dark-gray/35">Not set</span>
-                      )}
-                    </motion.p>
-                  )}
-                </AnimatePresence>
-              </div>
-            ))}
-          </div>
         </div>
       </div>
 
-      {/* Saved toast */}
-      <AnimatePresence>
-        {showSaved && (
-          <motion.div
-            initial={{ opacity: 0, y: 10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 10, scale: 0.95 }}
-            className="fixed bottom-6 right-6 flex items-center gap-2 rounded-xl bg-fresh-green px-4 py-3 font-inter text-sm font-medium text-white shadow-card"
-          >
-            <Check size={16} />
-            Profile updated
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Personal info */}
+      <div className="rounded-card bg-white p-6 shadow-card sm:p-8">
+        <h3 className="mb-5 font-poppins text-base font-semibold text-[#2C3E50]">
+          Personal Information
+        </h3>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field
+            icon={Pencil}
+            label="Full Name"
+            name="name"
+            value={form.name}
+            editing={editing}
+            onChange={handleChange}
+          />
+          <Field
+            icon={Mail}
+            label="Email Address"
+            name="email"
+            type="email"
+            value={form.email}
+            editing={editing}
+            onChange={handleChange}
+          />
+          <Field
+            icon={Phone}
+            label="Phone Number"
+            name="phone"
+            value={form.phone}
+            editing={editing}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      {/* Address */}
+      <div className="rounded-card bg-white p-6 shadow-card sm:p-8">
+        <h3 className="mb-5 flex items-center gap-2 font-poppins text-base font-semibold text-[#2C3E50]">
+          <MapPin size={17} className="text-[#2E7D32]" />
+          Delivery Address
+        </h3>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <Field
+            icon={MapPin}
+            label="Street"
+            name="street"
+            value={form.street}
+            editing={editing}
+            onChange={handleChange}
+          />
+          <Field
+            icon={MapPin}
+            label="City"
+            name="city"
+            value={form.city}
+            editing={editing}
+            onChange={handleChange}
+          />
+          <Field
+            icon={MapPin}
+            label="State / Province"
+            name="state"
+            value={form.state}
+            editing={editing}
+            onChange={handleChange}
+          />
+          <Field
+            icon={MapPin}
+            label="ZIP / Postal Code"
+            name="zip"
+            value={form.zip}
+            editing={editing}
+            onChange={handleChange}
+          />
+          <Field
+            icon={MapPin}
+            label="Country"
+            name="country"
+            value={form.country}
+            editing={editing}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
     </div>
   );
 }
