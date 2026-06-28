@@ -12,7 +12,8 @@ import {
 } from 'lucide-react';
 import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
-import { clearCart } from '../../redux/store';
+// SAHI
+import { clearCart } from '../../store/slices/cartSlice';
 
 const STEPS = [
   { key: 'address', label: 'Address', icon: MapPin },
@@ -99,14 +100,14 @@ function ReviewStep({ address, payment, items, total }) {
       <div className="space-y-2">
         {items.map((item) => (
           <div
-            key={item.product._id}
+            key={item.id}
             className="flex justify-between font-inter text-sm"
           >
             <span className="text-[#2C3E50]/80">
-              {item.product.name} × {item.quantity}
+              {item.name} × {item.quantity}
             </span>
             <span className="text-[#2C3E50]">
-              ${(item.product.price * item.quantity).toFixed(2)}
+              ${(item.price * item.quantity).toFixed(2)}
             </span>
           </div>
         ))}

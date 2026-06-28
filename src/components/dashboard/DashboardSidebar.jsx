@@ -10,11 +10,9 @@ import {
   LogOut,
   Menu,
   X,
-  Leaf,
 } from 'lucide-react';
+import logo from '../../assets/images/logo.png';
 
-// Keep this list as the single source of truth for dashboard nav.
-// path is relative to /dashboard (see routing setup in Step 1 notes)
 const NAV_ITEMS = [
   { label: 'Profile', path: 'profile', icon: User },
   { label: 'Order History', path: 'orders', icon: Package },
@@ -28,21 +26,22 @@ export default function DashboardSidebar({ user }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Replace with your real auth logout (clear token, dispatch redux action, etc.)
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate('/');
   };
 
   const SidebarContent = (
     <div className="flex h-full flex-col bg-white">
-      {/* Brand */}
-      <div className="flex items-center gap-2 px-6 py-6 border-b border-[#F5F5F5]">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#2E7D32]">
-          <Leaf size={18} className="text-white" />
-        </div>
-        <span className="font-poppins text-lg font-semibold text-[#2C3E50]">
-          Vegan<span className="text-[#2E7D32]">Fresh</span>
-        </span>
+      {/* Logo — click karo toh homepage */}
+      <div
+        onClick={() => navigate('/')}
+        className="flex items-center justify-center px-6 py-5 border-b border-[#F5F5F5] cursor-pointer"
+      >
+        <img
+          src={logo}
+          alt="Vegan Fresh"
+          className="h-24 w-auto object-contain hover:opacity-80 transition-opacity duration-200"
+        />
       </div>
 
       {/* User card */}
@@ -108,15 +107,13 @@ export default function DashboardSidebar({ user }) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="flex items-center justify-between border-b border-[#F5F5F5] bg-white px-4 py-3 lg:hidden">
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#2E7D32]">
-            <Leaf size={16} className="text-white" />
-          </div>
-          <span className="font-poppins text-base font-semibold text-[#2C3E50]">
-            Vegan<span className="text-[#2E7D32]">Fresh</span>
-          </span>
-        </div>
+      <div className="flex items-center justify-between border-b border-[#F5F5F5] bg-white px-4 py-2 lg:hidden">
+        <img
+          src={logo}
+          alt="Vegan Fresh"
+          className="h-14 w-auto object-contain cursor-pointer hover:opacity-80 transition-opacity duration-200"
+          onClick={() => navigate('/')}
+        />
         <button
           onClick={() => setMobileOpen(true)}
           className="rounded-lg p-2 text-[#2C3E50] hover:bg-[#F5F5F5]"

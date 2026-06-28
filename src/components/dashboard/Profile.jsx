@@ -11,7 +11,8 @@ import {
   CheckCircle2,
   Camera,
 } from 'lucide-react';
-import { setUser } from '../../redux/store';
+// SAHI
+import { updateProfile } from '../../store/slices/authSlice';
 
 // One labeled input, shared by view + edit states so styling never drifts apart.
 const Field = ({
@@ -68,7 +69,7 @@ export default function Profile() {
   const handleSave = () => {
     // Replace with PUT /api/users/profile once the backend route is live.
     dispatch(
-      setUser({
+      updateProfile({
         ...user,
         name: form.name,
         email: form.email,

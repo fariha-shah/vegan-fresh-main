@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, ShoppingCart, Star, Leaf, CheckCircle2 } from 'lucide-react';
-import { addToCart } from '../../redux/store';
+// SAHI
+import { addToCart } from '../../store/slices/cartSlice';
 
 // Replace with: GET /api/users/favorites
 // Shaped like the `products` collection, same as the homepage cards.
