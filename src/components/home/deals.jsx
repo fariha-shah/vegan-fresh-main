@@ -119,11 +119,12 @@ const Deals = () => {
       {/* Why Choose — Full Background Image + Circles + Bag */}
       <section
         className="relative w-full overflow-hidden flex flex-col items-center justify-center pb-0 mb-0"
+        // NAYA
         style={{
           minHeight: '750px',
           backgroundImage: `url(${landscapeBg})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center -330px',
+          backgroundSize: '100% 100%',
+          backgroundPosition: 'center center',
           backgroundRepeat: 'no-repeat',
         }}
       >
@@ -137,10 +138,10 @@ const Deals = () => {
           }}
         />
 
-        <div className="relative z-10 flex items-end justify-center -mt-20 md:-mt-28">
-          <div
+        <div className="relative z-10 flex items-end justify-center pt-40 pb-10">
+          <di
             className="absolute left-1/2 pointer-events-none"
-            style={{ top: '40%', width: 0, height: 0 }}
+            style={{ top: '50%', width: 0, height: 0 }}
           >
             {/* Decorative ring connecting the circles */}
             <div
@@ -177,14 +178,14 @@ const Deals = () => {
                 </span>
               </motion.div>
             ))}
-          </div>
+          </di>
 
           {/* Bag image itself */}
           <img
             src={bagBg}
             alt="Vegan Fresh tote bag"
             className="relative z-10 object-contain drop-shadow-2xl"
-            style={{ width: 'clamp(350px, 40vw, 400px)' }}
+            style={{ width: 'clamp(400px, 40vw, 450px)' }}
           />
           {/* Logo overlaid on the front of the bag */}
           <img
@@ -193,7 +194,7 @@ const Deals = () => {
             className="absolute z-10 object-contain drop-shadow-md"
             style={{
               width: 'clamp(90px, 9vw, 130px)',
-              top: '52%',
+              top: '60%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
             }}

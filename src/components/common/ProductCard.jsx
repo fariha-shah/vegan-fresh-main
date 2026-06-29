@@ -3,10 +3,18 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/slices/cartSlice';
 import { BsStarFill, BsStar, BsCartPlus } from 'react-icons/bs';
 import toast from '../../utils/toast';
+import { useSelector } from 'react-redux';
+import { toggleFavorite } from '../../store/slices/favoritesSlice';
+import { Heart } from 'lucide-react';
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
 
+  const favorites = useSelector((state) => state.favorites.items);
+
+  const isFav = favorites.some(
+    (i) => i._id === product._id || i.id === product._id
+  );
   const discountPercent = product.oldPrice
     ? Math.round(((product.oldPrice - product.price) / product.oldPrice) * 100)
     : null;

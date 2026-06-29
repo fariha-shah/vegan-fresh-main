@@ -4,24 +4,36 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#2E7D32',
-        'primary-dark': '#1B5E20',
-        'primary-light': '#81C784',
-        leaf: '#A5D6A7',
-        'organic-brown': '#8D6E63',
-        tomato: '#E53935',
-        carrot: '#F57C00',
-        'bg-light': '#F0FAF0',
-        'text-dark': '#1A2E1A',
+        // Green palette
         'green-primary': '#2E7D32',
         'green-dark': '#1B5E20',
         'green-light': '#81C784',
         'green-pale': '#E8F5E9',
+
+        // Aliases for Minahil's admin panel
+        primary: '#2E7D32',
+        primaryDark: '#1B5E20',
+        secondary: '#81C784',
+
+        // Text & backgrounds
+        'text-dark': '#1A2E1A',
+        'bg-light': '#F0FAF0',
+        darkGray: '#2C3E50',
+        lightGray: '#F5F5F5',
+
+        // Hero colors
         'hero-fresh': '#5F9349',
         'hero-organic': '#9BC886',
         'cream-card': '#FBF0D9',
-        'orange-accent': '#F57C00',
+
+        // Accent colors
+        tomato: '#E53935',
         'red-badge': '#E53935',
+        carrot: '#F57C00',
+        'orange-accent': '#F57C00',
+        leaf: '#A5D6A7',
+        organic: '#8D6E63',
+        'organic-brown': '#8D6E63',
       },
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],

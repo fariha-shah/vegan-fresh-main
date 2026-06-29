@@ -7,27 +7,67 @@ import { Mail, Lock, Leaf } from 'lucide-react';
 import { loginSuccess } from '../store/slices/authSlice';
 import vegImage from '../assets/images/veg.png';
 import logo from '../assets/images/logo.png';
+import { useLocation } from 'react-router-dom';
 
 export default function LoginPage() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [form, setForm] = useState({ email: '', password: '' });
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
+  // handleSubmit mein navigate change karo
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Replace with: POST /api/auth/login, then dispatch(loginSuccess(res.data))
-    dispatch(
-      loginSuccess({
-        user: { name: form.email.split('@')[0] || 'User', email: form.email },
-        token: 'demo-token',
-      })
-    );
-    navigate('/');
-  };
 
+    const savedUser = JSON.parse(
+      localStorage.getItem('registered_user') || 'null'
+    );
+
+    let userData;
+
+    // ADMIN LOGIN (fixed credentials)
+    if (form.email === 'admin@gmail.com' && form.password === 'admin123') {
+      userData = {
+        name: 'Admin',
+        email: form.email,
+        role: 'admin',
+      };
+    }
+    // REGISTERED USER LOGIN
+    else if (
+      savedUser &&
+      savedUser.email === form.email &&
+      savedUser.password === form.password
+    ) {
+      userData = {
+        name: savedUser.name,
+        email: savedUser.email,
+        role: 'user',
+      };
+    }
+    // DEMO USER
+    else {
+      userData = {
+        name: form.email.split('@')[0],
+        email: form.email,
+        role: 'user',
+      };
+    }
+
+    dispatch(loginSuccess({ user: userData, token: 'demo-token' }));
+    localStorage.setItem('token', 'demo-token');
+    localStorage.setItem('user', JSON.stringify(userData));
+    // 👇 redirect logic
+    const redirectPath =
+      location.state?.from ||
+      (userData.role === 'admin' ? '/admin' : '/dashboard');
+
+    navigate(redirectPath, { replace: true });
+  };
   return (
     <main className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-pale via-white to-green-light/20 px-4 pt-[120px] pb-16">
       {/* Ambient background blobs */}

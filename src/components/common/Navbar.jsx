@@ -20,6 +20,7 @@ const Navbar = () => {
     state.cart.items.reduce((sum, item) => sum + item.quantity, 0)
   );
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user); // ✅ user added
 
   useEffect(() => {
     setMenuOpen(false);
@@ -79,8 +80,8 @@ const Navbar = () => {
             )}
           </Link>
 
-          {/* Sign In (logged out) / Dashboard (logged in) */}
-          {isAuthenticated ? (
+          {/* ✅ Desktop: User = Dashboard, Admin/Logout = Sign In */}
+          {isAuthenticated && user?.role !== 'admin' ? (
             <Link
               to="/dashboard"
               className="hidden md:flex items-center gap-2 border-2 border-green-primary text-green-primary hover:bg-green-pale font-poppins font-semibold text-sm px-4 py-2 rounded-full transition-all duration-200"
@@ -130,7 +131,9 @@ const Navbar = () => {
               </span>
             )}
           </Link>
-          {isAuthenticated ? (
+
+          {/* ✅ Mobile: User = Dashboard, Admin/Logout = Sign In */}
+          {isAuthenticated && user?.role !== 'admin' ? (
             <Link
               to="/dashboard"
               className="block px-6 py-4 font-poppins font-semibold text-[13px] uppercase tracking-wide text-text-dark hover:text-green-primary hover:bg-green-pale transition-colors"

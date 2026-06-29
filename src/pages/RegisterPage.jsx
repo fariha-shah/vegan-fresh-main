@@ -1,13 +1,15 @@
-// src/pages/RegisterPage.jsx
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { motion } from 'framer-motion';
 import { User, Mail, Lock, Leaf } from 'lucide-react';
+
 import vegImage from '../assets/images/veg.png';
 import logo from '../assets/images/logo.png';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState({ username: '', email: '', password: '' });
 
   const handleChange = (e) =>
@@ -15,13 +17,19 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Replace with: POST /api/auth/register, then redirect to /login on success
-    navigate('/login');
+    // Sirf localStorage mein save karo, login nahi karo
+    localStorage.setItem(
+      'registered_user',
+      JSON.stringify({
+        name: form.username,
+        email: form.email,
+        password: form.password,
+      })
+    );
+    navigate('/login'); // dashboard nahi, login pe bhejo
   };
-
   return (
     <main className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-pale via-white to-green-light/20 px-4 pt-[120px] pb-16">
-      {/* Ambient background blobs */}
       <motion.div
         className="absolute top-10 left-10 w-72 h-72 rounded-full bg-green-light/30 blur-3xl"
         animate={{ y: [0, 20, 0] }}
@@ -34,7 +42,7 @@ export default function RegisterPage() {
       />
 
       <div className="relative flex items-center max-w-3xl w-full">
-        {/* Frosted glass form card */}
+        {/* Form card */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, x: -30 }}
@@ -59,6 +67,7 @@ export default function RegisterPage() {
             Join us for fresh organic veggies, daily.
           </motion.p>
 
+          {/* Username */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -67,7 +76,7 @@ export default function RegisterPage() {
           >
             <div className="flex-1">
               <label className="block text-xs text-text-dark/50 mb-1">
-                User name
+                Full Name
               </label>
               <input
                 type="text"
@@ -75,12 +84,14 @@ export default function RegisterPage() {
                 value={form.username}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent outline-none font-inter text-sm text-text-dark"
+                placeholder="Enter your full name"
+                className="w-full bg-transparent outline-none font-inter text-sm text-text-dark placeholder:text-gray-300"
               />
             </div>
             <User size={16} className="text-green-primary shrink-0" />
           </motion.div>
 
+          {/* Email */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -97,12 +108,14 @@ export default function RegisterPage() {
                 value={form.email}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent outline-none font-inter text-sm text-text-dark"
+                placeholder="Enter your email"
+                className="w-full bg-transparent outline-none font-inter text-sm text-text-dark placeholder:text-gray-300"
               />
             </div>
             <Mail size={16} className="text-green-primary shrink-0" />
           </motion.div>
 
+          {/* Password */}
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -119,12 +132,14 @@ export default function RegisterPage() {
                 value={form.password}
                 onChange={handleChange}
                 required
-                className="w-full bg-transparent outline-none font-inter text-sm text-text-dark"
+                placeholder="Create a password"
+                className="w-full bg-transparent outline-none font-inter text-sm text-text-dark placeholder:text-gray-300"
               />
             </div>
             <Lock size={16} className="text-green-primary shrink-0" />
           </motion.div>
 
+          {/* Submit */}
           <motion.button
             type="submit"
             initial={{ opacity: 0, y: 12 }}
@@ -134,7 +149,7 @@ export default function RegisterPage() {
             whileTap={{ scale: 0.97 }}
             className="w-full bg-gradient-to-r from-green-primary to-green-dark text-white font-poppins font-bold py-3.5 rounded-full shadow-card hover:shadow-hover transition-shadow"
           >
-            Sign Up
+            Create Account
           </motion.button>
 
           <motion.p
@@ -153,23 +168,20 @@ export default function RegisterPage() {
           </motion.p>
         </motion.form>
 
-        {/* Image panel — layered green gradient, glow, leaves, logo above vegetables */}
+        {/* Image panel */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5, delay: 0.2, ease: 'easeOut' }}
           className="hidden md:flex relative z-10 w-[320px] h-[460px] rounded-[32px] bg-gradient-to-br from-green-dark via-green-primary to-green-dark items-center justify-center overflow-hidden shadow-card"
         >
-          {/* Decorative glow */}
           <motion.div
             className="absolute w-64 h-64 rounded-full bg-green-light/40 blur-3xl"
             animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.8, 0.5] }}
             transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
           />
-          {/* Subtle dot texture */}
           <div className="absolute inset-0 opacity-10 [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:18px_18px]" />
 
-          {/* Floating leaf accents */}
           <motion.div
             className="absolute top-8 right-10 text-white/20"
             animate={{ rotate: [0, 15, 0], y: [0, -6, 0] }}
@@ -185,12 +197,11 @@ export default function RegisterPage() {
             <Leaf size={28} />
           </motion.div>
 
-          {/* Logo above the vegetables */}
           <div className="relative z-10 flex flex-col items-center px-8">
             <Link to="/">
               <motion.img
                 src={logo}
-                alt="The Vegan"
+                alt="Vegan Fresh"
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}

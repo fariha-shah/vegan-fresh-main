@@ -5,6 +5,9 @@ import { addToCart } from '../store/slices/cartSlice';
 import { PRODUCTS as FALLBACK_PRODUCTS } from '../assets/data';
 import ProductCard from '../components/common/ProductCard';
 import toast from '../utils/toast';
+import { useSelector } from 'react-redux';
+import { toggleFavorite } from '../store/slices/favoritesSlice';
+import { Heart } from 'lucide-react';
 import {
   BsCartPlus,
   BsCheckCircle,
@@ -16,12 +19,17 @@ import {
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
+
   const [product, setProduct] = useState(null);
   const [related, setRelated] = useState([]);
   const [qty, setQty] = useState(1);
   const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites.items);
 
+  const isFav = favorites.some(
+    (i) => i._id === product?._id || i.id === product?._id
+  );
   useEffect(() => {
     setLoading(true);
     setQty(1);
@@ -201,8 +209,9 @@ const ProductDetail = () => {
                   : '❌ Out of Stock'}
             </p>
 
-            {/* Quantity + Add to cart */}
-            <div className="flex gap-4 mb-8 flex-wrap">
+            {/* Quantity + Actions */}
+            <div className="flex gap-4 mb-8 flex-wrap items-center">
+              {/* Quantity */}
               <div className="flex items-center gap-3 border-2 border-gray-200 rounded-xl px-4 py-2">
                 <button
                   onClick={() => setQty(Math.max(1, qty - 1))}
@@ -210,9 +219,11 @@ const ProductDetail = () => {
                 >
                   −
                 </button>
+
                 <span className="font-poppins font-bold text-[16px] min-w-[24px] text-center">
                   {qty}
                 </span>
+
                 <button
                   onClick={() => setQty(Math.min(product.stock, qty + 1))}
                   className="w-8 h-8 rounded-lg border-2 border-green-primary text-green-primary font-bold text-lg flex items-center justify-center hover:bg-green-primary hover:text-white transition-all"
@@ -221,6 +232,7 @@ const ProductDetail = () => {
                 </button>
               </div>
 
+              {/* Add to Cart */}
               <button
                 onClick={handleAddToCart}
                 disabled={product.stock === 0}
@@ -228,6 +240,21 @@ const ProductDetail = () => {
               >
                 <BsCartPlus size={18} />
                 Add to Cart — ${(product.price * qty).toFixed(2)}
+              </button>
+
+              {/* ❤️ Wishlist Button */}
+              <button
+                onClick={() =>
+                  dispatch(toggleFavorite({ ...product, _id: product._id }))
+                }
+                className="w-12 h-12 flex items-center justify-center rounded-xl border-2 border-gray-200 hover:border-red-400 transition"
+              >
+                <Heart
+                  size={18}
+                  className={
+                    isFav ? 'fill-red-500 text-red-500' : 'text-gray-400'
+                  }
+                />
               </button>
             </div>
 

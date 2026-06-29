@@ -1,10 +1,18 @@
 import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import CheckoutForm from '../components/checkout/CheckoutForm';
 
 export default function CheckoutPage() {
   const { items, totalAmount } = useSelector((state) => state.cart);
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const location = useLocation();
 
+  // 🔒 LOGIN GUARD
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace state={{ from: '/checkout' }} />;
+  }
+
+  // 🛒 CART CHECK
   if (items.length === 0) {
     return <Navigate to="/cart" replace />;
   }
@@ -28,12 +36,10 @@ export default function CheckoutPage() {
             <h3 className="mb-4 font-poppins text-sm font-semibold text-text-dark">
               {items.length} {items.length === 1 ? 'item' : 'items'}
             </h3>
+
             <div className="space-y-2.5">
               {items.map((item) => (
-                <div
-                  key={item.id}
-                  className="flex justify-between font-inter text-sm"
-                >
+                <div key={item.id} className="flex justify-between text-sm">
                   <span className="text-gray-500">
                     {item.name} × {item.quantity}
                   </span>
@@ -43,27 +49,27 @@ export default function CheckoutPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 space-y-2 border-t border-gray-100 pt-3 font-inter text-sm text-gray-500">
+
+            <div className="mt-4 space-y-2 border-t pt-3 text-sm text-gray-500">
               <div className="flex justify-between">
                 <span>Subtotal</span>
                 <span>${totalAmount.toFixed(2)}</span>
               </div>
+
               <div className="flex justify-between">
                 <span>Delivery</span>
-                <span>
-                  {deliveryFee === 0 ? 'Free' : `$${deliveryFee.toFixed(2)}`}
-                </span>
+                <span>{deliveryFee === 0 ? 'Free' : `$${deliveryFee}`}</span>
               </div>
+
               <div className="flex justify-between">
                 <span>Tax</span>
                 <span>${tax.toFixed(2)}</span>
               </div>
             </div>
-            <div className="mt-3 flex justify-between border-t border-gray-100 pt-3">
-              <span className="font-poppins text-sm font-semibold text-text-dark">
-                Total
-              </span>
-              <span className="font-poppins text-base font-semibold text-green-primary">
+
+            <div className="mt-3 flex justify-between border-t pt-3">
+              <span className="font-semibold">Total</span>
+              <span className="font-semibold text-green-primary">
                 ${total.toFixed(2)}
               </span>
             </div>

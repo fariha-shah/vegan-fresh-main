@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+// Import logout action — top pe add karo
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/slices/authSlice';
 import {
   User,
   Package,
@@ -25,8 +28,10 @@ export default function DashboardSidebar({ user }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    dispatch(logout());
     navigate('/');
   };
 

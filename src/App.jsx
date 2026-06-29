@@ -29,6 +29,17 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
+//  Minahil Admin
+import AdminLayout from './admin/components/AdminLayout';
+import AdminDashboard from './admin/pages/AdminDashboard';
+import AdminProducts from './admin/pages/AdminProducts';
+import AdminCategories from './admin/pages/AdminCategories';
+import AdminOrders from './admin/pages/AdminOrders';
+import AdminUsers from './admin/pages/AdminUsers';
+import AdminBlogPost from './admin/pages/AdminBlogPost';
+import AdminCoupons from './admin/pages/AdminCoupons';
+import AdminStockAlert from './admin/pages/AdminStockAlert';
+import AdminRoute from './routes/AdminRoute';
 
 const App = () => {
   return (
@@ -65,6 +76,18 @@ const App = () => {
           <Route path="tracking" element={<Tracking />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="subscriptions" element={<Subscriptions />} />
+        </Route>
+        <Route element={<AdminRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="categories" element={<AdminCategories />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="blogs" element={<AdminBlogPost />} />
+            <Route path="coupons" element={<AdminCoupons />} />
+            <Route path="stock-alerts" element={<AdminStockAlert />} />
+          </Route>
         </Route>
       </Routes>
 
