@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import ProductCard from '../common/ProductCard';
 import { BsEmojiNeutral } from 'react-icons/bs';
 

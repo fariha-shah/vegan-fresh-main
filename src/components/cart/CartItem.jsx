@@ -1,7 +1,8 @@
+// Fareeha client dashboard, cart, checkout system
 import { motion } from 'framer-motion';
 import { Trash2, Leaf } from 'lucide-react';
 import { useDispatch } from 'react-redux';
-// SAHI — cartSlice.js se import karo
+
 import { removeFromCart } from '../../store/slices/cartSlice';
 
 import QuantitySelector from './QuantitySelector';

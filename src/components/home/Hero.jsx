@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import { Link } from 'react-router-dom';
 import { BsCart3 } from 'react-icons/bs';
 import { CATEGORIES } from '../../assets/data';

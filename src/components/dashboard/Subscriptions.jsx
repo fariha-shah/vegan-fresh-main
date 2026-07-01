@@ -1,3 +1,5 @@
+
+// Fareeha client dashboard, cart, checkout system
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,7 +15,6 @@ import {
   Check,
 } from "lucide-react";
 
-// Replace with: GET /api/subscriptions (matches the `subscriptions` schema)
 const INITIAL_SUBSCRIPTIONS = [
   {
     _id: "s1",
@@ -274,17 +275,17 @@ export default function Subscriptions() {
   const [showModal, setShowModal] = useState(false);
 
   const handleToggle = (id) => {
-    // Replace with: PUT /api/subscriptions/:id { isActive: !current }
+   
     setSubs((prev) => prev.map((s) => (s._id === id ? { ...s, isActive: !s.isActive } : s)));
   };
 
   const handleCancel = (id) => {
-    // Replace with: DELETE /api/subscriptions/:id
+  
     setSubs((prev) => prev.filter((s) => s._id !== id));
   };
 
   const handleCreate = (newSub) => {
-    // Replace with: POST /api/subscriptions
+
     setSubs((prev) => [newSub, ...prev]);
   };
 

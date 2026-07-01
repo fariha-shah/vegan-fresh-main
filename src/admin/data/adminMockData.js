@@ -1,3 +1,4 @@
+// Minahil admindashboard
 export const mockProducts = [
   {
     id: 1,

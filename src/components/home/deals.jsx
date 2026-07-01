@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import womanImg from '../../assets/images/banner.png';

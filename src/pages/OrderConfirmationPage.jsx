@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
@@ -11,8 +12,6 @@ import {
   Leaf,
 } from 'lucide-react';
 
-// Small floating leaves for a subtle celebratory feel without a full confetti
-// library — kept restrained so it still reads as "professional," not gimmicky.
 function FloatingLeaves() {
   const leaves = Array.from({ length: 8 });
   return (
@@ -37,7 +36,6 @@ export default function OrderConfirmationPage() {
   const location = useLocation();
   const state = location.state;
 
-  // Someone navigated here directly without placing an order — no data to show.
   if (!state) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-[#F5F5F5] px-4 text-center">

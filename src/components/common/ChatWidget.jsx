@@ -1,3 +1,4 @@
+//Taimoor About, contact, blog pages
 import { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Leaf, Bot, User } from 'lucide-react';
 

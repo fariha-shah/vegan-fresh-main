@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useDispatch, useSelector } from 'react-redux';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { toggleFavorite } from '../../store/slices/favoritesSlice';

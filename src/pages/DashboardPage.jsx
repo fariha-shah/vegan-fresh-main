@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { Outlet, useLocation, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSelector } from 'react-redux';
@@ -7,15 +8,13 @@ export default function DashboardPage() {
   const { user, isAuthenticated } = useSelector((state) => state.auth);
   const location = useLocation();
 
-  // Not logged in — redirect to login
- if (!isAuthenticated) {
-  return <Navigate to="/login" replace />;
-}
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
 
-// ✅ Admin ko dashboard access nahi milega
-if (user?.role === 'admin') {
-  return <Navigate to="/admin" replace />;
-}
+  if (user?.role === 'admin') {
+    return <Navigate to="/admin" replace />;
+  }
   return (
     <div className="flex min-h-screen bg-[#F5F5F5] lg:flex-row flex-col">
       <DashboardSidebar user={user} />

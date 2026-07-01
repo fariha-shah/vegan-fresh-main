@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
@@ -7,13 +8,12 @@ const FREE_DELIVERY_THRESHOLD = 50;
 const DELIVERY_FEE = 5;
 const TAX_RATE = 0.05;
 
-// Replace with: POST /api/admin/coupons validation -> here just a mock match
 const MOCK_COUPONS = { FRESH10: 0.1, VEGAN20: 0.2 };
 
 export default function CartSummary({ items }) {
   const navigate = useNavigate();
   const [code, setCode] = useState('');
-  const [applied, setApplied] = useState(null); // { code, discountRate } | "invalid" | null
+  const [applied, setApplied] = useState(null);
 
   const subtotal = items.reduce(
     (sum, i) => sum + i.product.price * i.quantity,

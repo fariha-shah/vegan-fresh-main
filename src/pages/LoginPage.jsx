@@ -18,8 +18,6 @@ export default function LoginPage() {
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
 
-  // handleSubmit mein navigate change karo
-
   const handleSubmit = (e) => {
     e.preventDefault();
 

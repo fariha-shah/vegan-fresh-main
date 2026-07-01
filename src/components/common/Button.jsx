@@ -1,7 +1,4 @@
-// src/components/common/Button.jsx
-// Reusable button matching the Vegan Fresh design system.
-// variant: 'primary' | 'outline' | 'shop' (orange pill from navbar)
-// size: 'sm' | 'md' | 'lg'
+//
 
 export default function Button({
   children,

@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import { BsSearch, BsX } from 'react-icons/bs';
 
 const Search = ({ value, onChange }) => {

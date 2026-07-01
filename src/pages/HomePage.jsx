@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import Hero from '../components/home/Hero';
 import Categories from '../components/home/categories';
 import Products from '../components/home/Products';

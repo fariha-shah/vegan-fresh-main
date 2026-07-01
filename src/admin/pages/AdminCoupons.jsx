@@ -1,3 +1,5 @@
+// Minahil admindashboard
+
 import { useState } from 'react';
 import { Plus, Trash2, X, BadgePercent, Tag } from 'lucide-react';
 import { mockCoupons } from '../data/adminMockData';

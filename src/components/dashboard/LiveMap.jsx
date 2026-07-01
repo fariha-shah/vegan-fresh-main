@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useEffect, useState } from 'react';
 import {
   MapContainer,

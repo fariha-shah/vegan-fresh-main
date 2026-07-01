@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
 import CheckoutForm from '../components/checkout/CheckoutForm';

@@ -1,3 +1,4 @@
+//Taimoor About, contact, blog pages
 import { useParams, Link } from 'react-router-dom';
 import { Calendar, User, Tag, ArrowLeft, ArrowRight } from 'lucide-react';
 import { BLOGS } from '../data/data';

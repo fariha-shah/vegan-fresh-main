@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';

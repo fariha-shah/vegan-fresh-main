@@ -1,3 +1,4 @@
+// Minahil admindashboard
 import { AlertTriangle } from 'lucide-react';
 import { mockProducts } from '../data/adminMockData';
 

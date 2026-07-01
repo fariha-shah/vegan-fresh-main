@@ -1,3 +1,4 @@
+// Minahil admindashboard
 import { useState } from 'react';
 import { Plus, Pencil, Trash2, X, UploadCloud } from 'lucide-react';
 import { mockProducts, mockCategories } from '../data/adminMockData';

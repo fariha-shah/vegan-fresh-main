@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { motion, AnimatePresence } from 'framer-motion';
 import { Minus, Plus } from 'lucide-react';
 

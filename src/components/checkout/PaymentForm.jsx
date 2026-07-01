@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { motion } from 'framer-motion';
 import { CreditCard, Wallet, Lock } from 'lucide-react';
 

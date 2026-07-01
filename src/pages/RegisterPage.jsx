@@ -17,7 +17,7 @@ export default function RegisterPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Sirf localStorage mein save karo, login nahi karo
+
     localStorage.setItem(
       'registered_user',
       JSON.stringify({
@@ -26,7 +26,7 @@ export default function RegisterPage() {
         password: form.password,
       })
     );
-    navigate('/login'); // dashboard nahi, login pe bhejo
+    navigate('/login');
   };
   return (
     <main className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-green-pale via-white to-green-light/20 px-4 pt-[120px] pb-16">

@@ -1,3 +1,4 @@
+// Fareeha client dashboard, cart, checkout system
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import LiveMap from './LiveMap';
@@ -11,8 +12,6 @@ import {
   PhoneCall,
 } from 'lucide-react';
 
-// Replace with: GET /api/orders/:id/track
-// tracking: { estimatedDelivery, currentLocation } -- matches the `orders` schema
 const MOCK_TRACKED_ORDERS = [
   {
     _id: '2',

@@ -1,3 +1,4 @@
+//Taimoor About, contact, blog pages
 import { useState, useEffect, useRef } from 'react';
 import {
   Leaf,

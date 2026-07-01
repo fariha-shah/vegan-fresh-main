@@ -1,4 +1,5 @@
-import { MapPin, Phone, Home } from "lucide-react";
+// Fareeha client dashboard, cart, checkout system
+import { MapPin, Phone, Home } from 'lucide-react';
 
 const Input = ({ label, icon: Icon, ...props }) => (
   <div>
@@ -14,7 +15,8 @@ const Input = ({ label, icon: Icon, ...props }) => (
 );
 
 export default function AddressForm({ address, onChange }) {
-  const set = (field) => (e) => onChange({ ...address, [field]: e.target.value });
+  const set = (field) => (e) =>
+    onChange({ ...address, [field]: e.target.value });
 
   return (
     <div className="space-y-5">
@@ -30,20 +32,44 @@ export default function AddressForm({ address, onChange }) {
             label="Street Address"
             placeholder="House 12, Street 5, Bahria Town"
             value={address.street}
-            onChange={set("street")}
+            onChange={set('street')}
           />
         </div>
-        <Input icon={MapPin} label="City" placeholder="Rawalpindi" value={address.city} onChange={set("city")} />
-        <Input icon={MapPin} label="State / Province" placeholder="Punjab" value={address.state} onChange={set("state")} />
-        <Input icon={MapPin} label="ZIP / Postal Code" placeholder="46000" value={address.zip} onChange={set("zip")} />
-        <Input icon={MapPin} label="Country" placeholder="Pakistan" value={address.country} onChange={set("country")} />
+        <Input
+          icon={MapPin}
+          label="City"
+          placeholder="Rawalpindi"
+          value={address.city}
+          onChange={set('city')}
+        />
+        <Input
+          icon={MapPin}
+          label="State / Province"
+          placeholder="Punjab"
+          value={address.state}
+          onChange={set('state')}
+        />
+        <Input
+          icon={MapPin}
+          label="ZIP / Postal Code"
+          placeholder="46000"
+          value={address.zip}
+          onChange={set('zip')}
+        />
+        <Input
+          icon={MapPin}
+          label="Country"
+          placeholder="Pakistan"
+          value={address.country}
+          onChange={set('country')}
+        />
         <div className="sm:col-span-2">
           <Input
             icon={Phone}
             label="Phone Number"
             placeholder="+92 3XX XXXXXXX"
             value={address.phone}
-            onChange={set("phone")}
+            onChange={set('phone')}
           />
         </div>
       </div>
@@ -52,7 +78,9 @@ export default function AddressForm({ address, onChange }) {
         <input
           type="checkbox"
           checked={address.saveAddress || false}
-          onChange={(e) => onChange({ ...address, saveAddress: e.target.checked })}
+          onChange={(e) =>
+            onChange({ ...address, saveAddress: e.target.checked })
+          }
           className="h-4 w-4 rounded accent-[#2E7D32]"
         />
         Save this address to my profile for next time

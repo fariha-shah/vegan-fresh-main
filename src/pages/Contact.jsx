@@ -1,3 +1,4 @@
+//Taimoor About, contact, blog pages
 import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle2 } from 'lucide-react';
 

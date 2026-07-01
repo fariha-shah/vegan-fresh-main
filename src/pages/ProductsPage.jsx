@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';

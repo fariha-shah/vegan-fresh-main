@@ -1,3 +1,4 @@
+//Taimoor About, contact, blog pages
 import { Link } from 'react-router-dom';
 import { Calendar, Tag, ArrowRight, BookOpen } from 'lucide-react';
 import { BLOGS } from '../data/data';

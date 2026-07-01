@@ -1,7 +1,8 @@
+// Fareeha client dashboard, cart, checkout system
 import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-// Import logout action — top pe add karo
+
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/slices/authSlice';
 import {
@@ -37,7 +38,6 @@ export default function DashboardSidebar({ user }) {
 
   const SidebarContent = (
     <div className="flex h-full flex-col bg-white">
-      {/* Logo — click karo toh homepage */}
       <div
         onClick={() => navigate('/')}
         className="flex items-center justify-center px-6 py-5 border-b border-[#F5F5F5] cursor-pointer"

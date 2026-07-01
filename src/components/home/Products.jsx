@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import { useEffect, useState } from 'react';
 import { PRODUCTS as FALLBACK_PRODUCTS } from '../../assets/data';
 import ProductCard from '../common/ProductCard';

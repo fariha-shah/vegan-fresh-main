@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 export default function Loader({ size = 48 }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'center', padding: '40px' }}>

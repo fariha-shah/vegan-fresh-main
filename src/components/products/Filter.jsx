@@ -1,3 +1,4 @@
+//Wajeeha Home page,setup
 import { CATEGORIES } from '../../assets/data';
 import { MdFilterList } from 'react-icons/md';
 
